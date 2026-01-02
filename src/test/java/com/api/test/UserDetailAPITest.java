@@ -8,7 +8,7 @@ import org.testng.annotations.Test;
 
 import static io.restassured.RestAssured.*;
 
-public class UserDetailAPIRequest extends BaseTest{
+public class UserDetailAPITest extends BaseTest{
     LoginAPITest loginAPITest;
     @BeforeTest
     public void setLoginAPITest() {
