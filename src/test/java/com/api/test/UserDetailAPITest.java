@@ -1,5 +1,7 @@
 package com.api.test;
 
+import com.api.utils.ConfigManager;
+import com.api.utils.ConfigManager2;
 import io.restassured.http.ContentType;
 import io.restassured.module.jsv.JsonSchemaValidator;
 import org.hamcrest.Matchers;
@@ -8,8 +10,8 @@ import org.testng.annotations.Test;
 
 import static io.restassured.RestAssured.*;
 
-public class UserDetailAPITest extends BaseTest{
-    LoginAPITest loginAPITest;
+public class UserDetailAPITest {
+   LoginAPITest loginAPITest;
     @BeforeTest
     public void setLoginAPITest() {
          loginAPITest = new LoginAPITest();
@@ -18,9 +20,13 @@ public class UserDetailAPITest extends BaseTest{
     @Test
     public void userDetailAPIRequest()
     {
-        given().header("Authorization",loginAPITest.getToken())
+        given()
+                .baseUri(ConfigManager2.getProperty("BASE_URI"))
+                .header("Authorization",loginAPITest.getToken())
                 .contentType(ContentType.JSON)
                 .accept(ContentType.ANY)
+                .log().uri()
+                .log().headers()
                 .when()
                 .get("/userdetails")
                 .then()
