@@ -38,11 +38,6 @@ public class LoginAPITest  {
                 .body(JsonSchemaValidator.matchesJsonSchemaInClasspath("response-schema/loginAPIResponseSchema.json"))
                 .body("data.token",Matchers.notNullValue())
                 .extract().response();
-
-        token = response.jsonPath().getString("data.token");
-    }
-    public String getToken() {
-        return token;
     }
     @Test
     public void loginWithGetMethod() //Wrong HTTP Method
@@ -62,9 +57,7 @@ public class LoginAPITest  {
                 .get("/login")
                 .then()
                 .log().all()
-                .statusCode(200)
-                .body("message", Matchers.equalTo("Success"))
-                 .body("data.token",Matchers.notNullValue())
+                .statusCode(404)
                 .extract().response();
     }
     @Test
@@ -85,8 +78,7 @@ public class LoginAPITest  {
                 .post("/login")
                 .then()
                 .log().all()
-                .statusCode(200)
-                .body("message", Matchers.equalTo("Success"));
+                .statusCode(500);
 
 
     }

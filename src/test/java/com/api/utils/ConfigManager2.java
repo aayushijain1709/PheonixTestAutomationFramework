@@ -10,7 +10,11 @@ public class ConfigManager2 {
     private static Properties properties = new Properties();
     private static String filePath ="config/config.properties";
     private static String env;
-//static bloc will run only once 1st time when class loaded in memory.
+
+    private ConfigManager2() {
+    }
+
+    //static bloc will run only once 1st time when class loaded in memory.
     static {
        env= System.getProperty("env","qa"); // if env not passed it will take default value as qa
        env.toLowerCase().trim();
