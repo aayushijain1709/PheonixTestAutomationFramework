@@ -1,0 +1,12 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+
+<suite name="PheonixTestAutomation" verbose="1">
+    <test name="SequentialTestRun">
+        <classes>
+            <class name="com.api.test.LoginAPITest"/>
+            <class name="com.api.test.UserDetailAPITest"/>
+            <class name="com.api.test.CountAPITest"/>
+            <class name="com.api.test.MasterAPIRequestTest"/>
+        </classes>
+    </test>
+</suite>

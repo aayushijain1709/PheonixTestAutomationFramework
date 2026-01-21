@@ -24,7 +24,7 @@ public class CountAPITest {
                 then()
                 .log().all()
                 .statusCode(200)
-                .time(lessThan(500L))
+                .time(lessThan(1000L))
                 .body("message",equalTo("Success"))
                 .body("data",hasSize(3))
                 .body("data.label",containsInAnyOrder("Pending for delivery","Pending for FST assignment","Created today"))

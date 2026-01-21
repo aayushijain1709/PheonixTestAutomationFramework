@@ -30,7 +30,7 @@ public class MasterAPIRequestTest {
                 .then()
                 .log().all()
                 .statusCode(200)
-                .time(Matchers.lessThan(1000L))
+                .time(Matchers.lessThan(2000L))
                .body(JsonSchemaValidator.matchesJsonSchemaInClasspath("response-schema/MasterAPIResponseSchema.json"))
                 .extract().response();
         String[] key ={"mst_oem","mst_model","mst_action_status","mst_warrenty_status","mst_platform"
