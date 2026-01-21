@@ -1,0 +1,58 @@
+name: Pheonix Test Automation Framework
+
+on:
+  # Manual trigger with parameters
+  workflow_dispatch:
+    inputs:
+      env:
+        description: 'Target environment'
+        required: true
+        default: 'qa'
+        type: choice
+        options:
+          - qa
+          - dev
+          - uat
+
+  # Nightly run at 12:00 AM IST (18:30 UTC)
+  schedule:
+    - cron: '30 18 * * *'
+
+  # Optional: trigger on push on main branch 
+  push:
+    branches: [ "main" ]
+
+jobs:
+  testng-run:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Cache Maven dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-m2-
+
+      - name: Run Pheonix Test AUtomation Framework using TestNG Suite
+        run: |
+          mvn clean test \
+          -DsuiteXmlFile=testng.xml \
+          -Denv=${{ github.event.inputs.env || 'qa' }}
+
+      - name: Archive Surefire Reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: surefire-reports
+          path: target/surefire-reports
