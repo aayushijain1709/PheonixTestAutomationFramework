@@ -9,10 +9,8 @@ on:
         required: true
         default: 'qa'
         type: choice
-        options:
-          - qa
-          - dev
-          - uat
+        options: [qa,uat,dev]
+      
 
   # Nightly run at 12:00 AM IST (18:30 UTC)
   schedule:
@@ -56,3 +54,4 @@ jobs:
         with:
           name: surefire-reports
           path: target/surefire-reports
+          retention-days: 15
