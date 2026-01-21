@@ -10,6 +10,13 @@ on:
         default: 'qa'
         type: choice
         options: [qa,uat,dev]
+
+      suiteXmlFile:
+        description: 'TestNg Xml File'
+        required: true
+        default: 'testng.xml'
+        type: choice
+        options: [testng.xml,smoke.xml,regression.xml]  
       
 
   # Nightly run at 12:00 AM IST (18:30 UTC)
@@ -45,8 +52,8 @@ jobs:
       - name: Run Pheonix Test AUtomation Framework using TestNG Suite
         run: |
           mvn clean test \
-          -DsuiteXmlFile=testng.xml \
-          -Denv=${{ github.event.inputs.env || 'qa' }}
+          -DsuiteXmlFile=${{ github.event.inputs.suiteXmlFile }} \
+          -Denv=${{ github.event.inputs.env }}
 
       - name: Archive Surefire Reports
         if: always()
